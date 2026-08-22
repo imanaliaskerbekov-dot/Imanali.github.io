@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ASKERBEK — Lexus × BeamNG</title>
+
+<meta name="description"
+      content="Askerbek Imanali — 14-year-old IT programmer and automotive enthusiast. Explore Lexus cars through a BeamNG-inspired digital experience.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#050505;
+    --bg2:#0b0b0b;
+    --text:#f5f5f5;
+    --muted:#999;
+    --line:rgba(255,255,255,.11);
+    --card:rgba(255,255,255,.055);
+    --accent:#ffffff;
+    --accent2:#aaa;
+    --shadow:0 30px 100px rgba(0,0,0,.55);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,Arial,sans-serif;
+    overflow-x:hidden;
+}
+
+body.light{
+    --bg:#f3f3f3;
+    --bg2:#fff;
+    --text:#080808;
+    --muted:#666;
+    --line:rgba(0,0,0,.12);
+    --card:rgba(0,0,0,.045);
+    --accent:#080808;
+    --accent2:#555;
+}
+
+/* =========================
+   GLOBAL
+========================= */
+
+::selection{
+    background:#fff;
+    color:#000;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button{
+    font-family:inherit;
+}
+
+.container{
+    width:min(1400px,92%);
+    margin:auto;
+}
+
+section{
+    position:relative;
+    padding:130px 0;
+}
+
+.eyebrow{
+    font-size:11px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:20px;
+}
+
+.title{
+    font-family:"Space Grotesk",sans-serif;
+    font-size:clamp(45px,7vw,105px);
+    line-height:.9;
+    letter-spacing:-5px;
+}
+
+.title span{
+    color:var(--muted);
+}
+
+.subtitle{
+    max-width:620px;
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.8;
+}
+
+/* =========================
+   CURSOR
+========================= */
+
+.cursor{
+    width:18px;
+    height:18px;
+    border:1px solid rgba(255,255,255,.7);
+    border-radius:50%;
+    position:fixed;
+    pointer-events:none;
+    z-index:9999;
+    transform:translate(-50%,-50%);
+    transition:
+        width .25s,
+        height .25s,
+        background .25s;
+    mix-blend-mode:difference;
+}
+
+.cursor.active{
+    width:55px;
+    height:55px;
+    background:#fff;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.nav{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1000;
+    padding:24px 0;
+    transition:.4s;
+}
+
+.nav.scrolled{
+    padding:14px 0;
+    background:rgba(5,5,5,.72);
+    backdrop-filter:blur(25px);
+    border-bottom:1px solid var(--line);
+}
+
+.nav-inner{
+    width:min(1500px,94%);
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-family:"Space Grotesk";
+    font-size:19px;
+    font-weight:700;
+    letter-spacing:-1px;
+}
+
+.logo small{
+    font-size:8px;
+    letter-spacing:3px;
+    display:block;
+    color:var(--muted);
+    margin-top:2px;
+}
+
+.nav-links{
+    display:flex;
+    gap:35px;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+}
+
+.nav-links a{
+    color:#aaa;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.nav-actions{
+    display:flex;
+    gap:10px;
+}
+
+.icon-btn{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--card);
+    color:var(--text);
+    cursor:pointer;
+    transition:.3s;
+}
+
+.icon-btn:hover{
+    transform:translateY(-3px);
+    background:var(--text);
+    color:var(--bg);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:100vh;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    padding:0;
+}
+
+.hero-bg{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(90deg,
+            rgba(0,0,0,.94) 0%,
+            rgba(0,0,0,.55) 45%,
+            rgba(0,0,0,.12) 100%),
+        url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2200&q=90")
+        center/cover;
+    transform:scale(1.08);
+    transition:transform 1s cubic-bezier(.2,.7,.2,1);
+}
+
+.hero:hover .hero-bg{
+    transform:scale(1.12);
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    width:min(1400px,92%);
+    margin:auto;
+    padding-top:70px;
+}
+
+.hero-kicker{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    color:#aaa;
+    font-size:11px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    margin-bottom:28px;
+}
+
+.hero-kicker::before{
+    content:"";
+    width:45px;
+    height:1px;
+    background:#aaa;
+}
+
+.hero h1{
+    font-family:"Space Grotesk";
+    font-size:clamp(65px,11vw,180px);
+    line-height:.78;
+    letter-spacing:-10px;
+    max-width:1050px;
+}
+
+.hero h1 em{
+    font-style:normal;
+    color:#aaa;
+}
+
+.hero-description{
+    max-width:520px;
+    margin-top:35px;
+    color:#bbb;
+    line-height:1.8;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:14px;
+    margin-top:38px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:17px 25px;
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:100px;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    transition:.35s;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+}
+
+.btn.primary{
+    background:#fff;
+    color:#000;
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 45px rgba(0,0,0,.4);
+}
+
+.hero-scroll{
+    position:absolute;
+    bottom:35px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#aaa;
+    font-size:10px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    writing-mode:vertical-rl;
+}
+
+.hero-scroll::after{
+    content:"";
+    width:1px;
+    height:65px;
+    background:#777;
+    display:block;
+    margin:15px auto 0;
+}
+
+/* =========================
+   INTRO
+========================= */
+
+.intro-grid{
+    display:grid;
+    grid-template-columns:1fr 1.5fr;
+    gap:100px;
+    align-items:end;
+}
+
+.big-number{
+    font-size:180px;
+    line-height:.7;
+    font-family:"Space Grotesk";
+    letter-spacing:-15px;
+    color:#222;
+}
+
+.intro-text{
+    padding-bottom:10px;
+}
+
+.intro-text p{
+    font-size:clamp(25px,3vw,42px);
+    line-height:1.2;
+    letter-spacing:-1.5px;
+}
+
+/* =========================
+   MODELS
+========================= */
+
+.models-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:30px;
+    margin-bottom:55px;
+}
+
+.model-filter{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.filter{
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--muted);
+    padding:10px 17px;
+    border-radius:100px;
+    cursor:pointer;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    transition:.3s;
+}
+
+.filter.active,
+.filter:hover{
+    background:var(--text);
+    color:var(--bg);
+}
+
+.models{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.model-card{
+    min-height:570px;
+    position:relative;
+    overflow:hidden;
+    border-radius:4px;
+    background:#111;
+    cursor:pointer;
+    transform:translateY(0);
+    transition:.5s;
+}
+
+.model-card:hover{
+    transform:translateY(-8px);
+}
+
+.model-card img{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:1s;
+}
+
+.model-card:hover img{
+    transform:scale(1.07);
+}
+
+.model-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            0deg,
+            rgba(0,0,0,.9),
+            transparent 65%
+        );
+}
+
+.model-info{
+    position:absolute;
+    z-index:2;
+    bottom:30px;
+    left:30px;
+    right:30px;
+}
+
+.model-tag{
+    font-size:10px;
+    letter-spacing:3px;
+    color:#aaa;
+    text-transform:uppercase;
+}
+
+.model-name{
+    font-family:"Space Grotesk";
+    font-size:55px;
+    letter-spacing:-3px;
+    margin-top:8px;
+}
+
+.model-desc{
+    font-size:13px;
+    color:#bbb;
+    margin-top:10px;
+}
+
+.model-arrow{
+    position:absolute;
+    right:30px;
+    bottom:30px;
+    z-index:3;
+    width:45px;
+    height:45px;
+    border:1px solid rgba(255,255,255,.3);
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    transition:.3s;
+}
+
+.model-card:hover .model-arrow{
+    background:#fff;
+    color:#000;
+    transform:rotate(-45deg);
+}
+
+/* =========================
+   BEAMNG SECTION
+========================= */
+
+.beamng{
+    min-height:850px;
+    overflow:hidden;
+    background:#080808;
+}
+
+.beamng-bg{
+    position:absolute;
+    inset:0;
+    opacity:.32;
+    background:
+        linear-gradient(90deg,#050505 0%,transparent 70%),
+        url("https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=2200&q=90")
+        center/cover;
+    background-attachment:fixed;
+}
+
+.beamng-content{
+    position:relative;
+    z-index:2;
+}
+
+.beamng h2{
+    font-size:clamp(55px,9vw,135px);
+    font-family:"Space Grotesk";
+    line-height:.82;
+    letter-spacing:-8px;
+}
+
+.beamng h2 span{
+    color:#777;
+}
+
+.game-ui{
+    margin-top:70px;
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:20px;
+}
+
+.dashboard{
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(10,10,10,.65);
+    backdrop-filter:blur(25px);
+    padding:30px;
+    min-height:350px;
+}
+
+.dashboard-top{
+    display:flex;
+    justify-content:space-between;
+    color:#888;
+    font-size:10px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.speed{
+    font-family:"Space Grotesk";
+    font-size:120px;
+    line-height:1;
+    margin-top:70px;
+}
+
+.speed small{
+    font-size:18px;
+    color:#777;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:30px;
+}
+
+.stat{
+    padding:15px;
+    border-top:1px solid var(--line);
+}
+
+.stat small{
+    color:#777;
+    display:block;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.stat strong{
+    display:block;
+    margin-top:5px;
+}
+
+.car-preview{
+    position:relative;
+    overflow:hidden;
+    min-height:350px;
+    background:
+        url("https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1400&q=85")
+        center/cover;
+}
+
+.car-preview::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(0deg,#050505,transparent 60%);
+}
+
+.preview-label{
+    position:absolute;
+    z-index:2;
+    bottom:25px;
+    left:25px;
+}
+
+.preview-label strong{
+    font-family:"Space Grotesk";
+    font-size:32px;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:100px;
+    align-items:center;
+}
+
+.about-image{
+    min-height:600px;
+    background:
+        linear-gradient(0deg,rgba(0,0,0,.4),transparent),
+        url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85")
+        center/cover;
+}
+
+.about-copy h2{
+    font-family:"Space Grotesk";
+    font-size:clamp(50px,6vw,90px);
+    line-height:.9;
+    letter-spacing:-5px;
+}
+
+.about-copy h2 span{
+    color:#777;
+}
+
+.about-copy p{
+    color:var(--muted);
+    line-height:1.9;
+    margin-top:30px;
+    max-width:550px;
+}
+
+.skills{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:30px;
+}
+
+.skill{
+    padding:11px 16px;
+    border:1px solid var(--line);
+    border-radius:100px;
+    font-size:11px;
+    color:var(--muted);
+}
+
+/* =========================
+   TIP
+========================= */
+
+.tip{
+    background:#0b0b0b;
+    text-align:center;
+}
+
+.tip h2{
+    font-family:"Space Grotesk";
+    font-size:clamp(50px,8vw,110px);
+    letter-spacing:-6px;
+}
+
+.tip p{
+    color:#777;
+    margin:25px auto 45px;
+    max-width:500px;
+    line-height:1.7;
+}
+
+.tip-buttons{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.tip-btn{
+    border:1px solid #292929;
+    background:#111;
+    color:#fff;
+    padding:18px 28px;
+    border-radius:100px;
+    cursor:pointer;
+    font-size:13px;
+    transition:.35s;
+}
+
+.tip-btn:hover{
+    background:#fff;
+    color:#000;
+    transform:translateY(-5px);
+}
+
+.tip-note{
+    margin-top:25px;
+    font-size:10px;
+    color:#555;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+    padding-bottom:80px;
+}
+
+.contact-box{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:80px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:40px;
+}
+
+.contact-box h2{
+    font-family:"Space Grotesk";
+    font-size:clamp(45px,7vw,100px);
+    line-height:.9;
+    letter-spacing:-6px;
+}
+
+.contact-email{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:200px;
+    padding:20px 30px;
+    border:1px solid var(--line);
+    border-radius:100px;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    transition:.35s;
+}
+
+.contact-email:hover{
+    background:var(--text);
+    color:var(--bg);
+    transform:translateY(-5px);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    padding:30px 0;
+    color:#555;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.footer-inner{
+    display:flex;
+    justify-content:space-between;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    backdrop-filter:blur(25px);
+    z-index:3000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(900px,100%);
+    background:#111;
+    border:1px solid #292929;
+    padding:35px;
+    position:relative;
+    animation:modalIn .5s ease;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(.97);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.modal-close{
+    position:absolute;
+    right:20px;
+    top:20px;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#222;
+    border:0;
+    color:#fff;
+    cursor:pointer;
+}
+
+.modal-image{
+    width:100%;
+    height:350px;
+    object-fit:cover;
+}
+
+.modal h2{
+    font-family:"Space Grotesk";
+    font-size:55px;
+    margin-top:25px;
+    letter-spacing:-3px;
+}
+
+.modal p{
+    color:#888;
+    line-height:1.7;
+    margin-top:10px;
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(60px);
+    transition:1s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:none;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero h1{
+        letter-spacing:-6px;
+    }
+
+    .intro-grid,
+    .about-grid,
+    .game-ui{
+        grid-template-columns:1fr;
+        gap:50px;
+    }
+
+    .big-number{
+        font-size:110px;
+    }
+
+    .models{
+        grid-template-columns:1fr;
+    }
+
+    .model-card{
+        min-height:480px;
+    }
+
+    .models-header{
+        display:block;
+    }
+
+    .model-filter{
+        margin-top:30px;
+    }
+
+    .contact-box{
+        display:block;
+    }
+
+    .contact-email{
+        margin-top:35px;
+    }
+
+    .footer-inner{
+        display:block;
+    }
+
+    .footer-inner div:last-child{
+        margin-top:10px;
+    }
+
+}
+
+@media(max-width:550px){
+
+    section{
+        padding:90px 0;
+    }
+
+    .hero{
+        min-height:850px;
+        height:100vh;
+    }
+
+    .hero h1{
+        font-size:65px;
+        letter-spacing:-5px;
+    }
+
+    .hero-bg{
+        background-position:65% center;
+    }
+
+    .model-name{
+        font-size:43px;
+    }
+
+    .speed{
+        font-size:80px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .about-image{
+        min-height:400px;
+    }
+
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        scroll-behavior:auto!important;
+        transition:none!important;
+        animation:none!important;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="cursor"></div>
+
+<!-- =========================
+     NAV
+========================= -->
+
+<header class="nav" id="nav">
+
+<div class="nav-inner">
+
+<a href="#" class="logo">
+    ASKERBEK
+    <small>IMANALI / DIGITAL GARAGE</small>
+</a>
+
+<nav class="nav-links">
+    <a href="#models">Cars</a>
+    <a href="#beamng">BeamNG</a>
+    <a href="#about">About</a>
+    <a href="#tips">Support</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<div class="nav-actions">
+    <button class="icon-btn" id="themeBtn">◐</button>
+</div>
+
+</div>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+<div class="hero-bg"></div>
+
+<div class="hero-content">
+
+<div class="hero-kicker">
+    Askerbek Imanali / Digital Garage
+</div>
+
+<h1>
+    LEXUS<br>
+    <em>IN MOTION.</em>
+</h1>
+
+<p class="hero-description">
+    Менің жеке автомобильдік digital space-ім.
+    Lexus дизайны, BeamNG.drive атмосферасы және
+    IT арқылы жасалған интерактивті тәжірибе.
+</p>
+
+<div class="hero-buttons">
+
+<a class="btn primary" href="#models">
+    Explore cars →
+</a>
+
+<a class="btn" href="#about">
+    About me
+</a>
+
+</div>
+
+</div>
+
+<div class="hero-scroll">
+    Scroll
+</div>
+
+</section>
+
+
+<!-- =========================
+     INTRO
+========================= -->
+
+<section>
+
+<div class="container">
+
+<div class="intro-grid reveal">
+
+<div>
+    <div class="eyebrow">01 / THE PROJECT</div>
+    <div class="big-number">14</div>
+</div>
+
+<div class="intro-text">
+
+<p>
+    I'm <strong>Askerbek Imanali</strong> —
+    a 14-year-old IT programmer,
+    car enthusiast and digital creator.
+</p>
+
+<p style="margin-top:30px;color:#666;">
+    This is where automotive design
+    meets code, simulation and creativity.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     MODELS
+========================= -->
+
+<section id="models">
+
+<div class="container">
+
+<div class="models-header reveal">
+
+<div>
+
+<div class="eyebrow">02 / DIGITAL GARAGE</div>
+
+<h2 class="title">
+    CHOOSE<br>
+    <span>YOUR LEXUS.</span>
+</h2>
+
+</div>
+
+<div class="model-filter">
+
+<button class="filter active" data-filter="all">
+    All
+</button>
+
+<button class="filter" data-filter="suv">
+    SUV
+</button>
+
+<button class="filter" data-filter="sport">
+    Sport
+</button>
+
+</div>
+
+</div>
+
+
+<div class="models">
+
+
+<!-- GX -->
+
+<article class="model-card reveal"
+         data-category="suv"
+         data-model="GX 550"
+         data-image="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1600&q=90"
+         data-description="The ultimate digital off-road machine. Presented through a BeamNG-inspired experience.">
+
+<img src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1600&q=90"
+     alt="Lexus inspired SUV">
+
+<div class="model-info">
+
+<div class="model-tag">SUV / OVERTRAIL</div>
+
+<div class="model-name">
+    GX 550
+</div>
+
+<div class="model-desc">
+    Adventure, luxury and brutal capability.
+</div>
+
+</div>
+
+<div class="model-arrow">
+    ↗
+</div>
+
+</article>
+
+
+<!-- LX -->
+
+<article class="model-card reveal"
+         data-category="suv"
+         data-model="LX 600"
+         data-image="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1600&q=90"
+         data-description="A luxury SUV concept for the ultimate digital garage.">
+
+<img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1600&q=90"
+     alt="Luxury SUV">
+
+<div class="model-info">
+
+<div class="model-tag">LUXURY SUV</div>
+
+<div class="model-name">
+    LX 600
+</div>
+
+<div class="model-desc">
+    Maximum comfort. Maximum presence.
+</div>
+
+</div>
+
+<div class="model-arrow">
+    ↗
+</div>
+
+</article>
+
+
+<!-- LC -->
+
+<article class="model-card reveal"
+         data-category="sport"
+         data-model="LC 500"
+         data-image="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=1600&q=90"
+         data-description="A dramatic performance coupe concept built for the digital road.">
+
+<img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=1600&q=90"
+     alt="Sports coupe">
+
+<div class="model-info">
+
+<div class="model-tag">PERFORMANCE</div>
+
+<div class="model-name">
+    LC 500
+</div>
+
+<div class="model-desc">
+    Sculpted design. V8 attitude.
+</div>
+
+</div>
+
+<div class="model-arrow">
+    ↗
+</div>
+
+</article>
+
+
+<!-- RX -->
+
+<article class="model-card reveal"
+         data-category="suv"
+         data-model="RX 500h"
+         data-image="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=90"
+         data-description="A modern crossover combining technology and performance.">
+
+<img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=90"
+     alt="Modern crossover">
+
+<div class="model-info">
+
+<div class="model-tag">CROSSOVER</div>
+
+<div class="model-name">
+    RX 500h
+</div>
+
+<div class="model-desc">
+    Intelligent performance for the city.
+</div>
+
+</div>
+
+<div class="model-arrow">
+    ↗
+</div>
+
+</article>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     BEAMNG
+========================= -->
+
+<section class="beamng" id="beamng">
+
+<div class="beamng-bg"></div>
+
+<div class="container beamng-content">
+
+<div class="eyebrow reveal">
+    03 / SIMULATION MODE
+</div>
+
+<h2 class="reveal">
+    BUILT FOR<br>
+    <span>BEAMNG.</span>
+</h2>
+
+<p class="subtitle reveal" style="margin-top:35px;">
+    Imagine your favorite Lexus models inside
+    a realistic BeamNG.drive-inspired environment:
+    dynamic physics, detailed dashboards,
+    cinematic lighting and endless roads.
+</p>
+
+
+<div class="game-ui reveal">
+
+<div class="dashboard">
+
+<div class="dashboard-top">
+
+<span>BEAMNG / DIGITAL GARAGE</span>
+
+<span>FREE ROAM</span>
+
+</div>
+
+<div class="speed">
+    124 <small>KM/H</small>
+</div>
+
+<div class="stats">
+
+<div class="stat">
+    <small>RPM</small>
+    <strong>3,420</strong>
+</div>
+
+<div class="stat">
+    <small>GEAR</small>
+    <strong>D7</strong>
+</div>
+
+<div class="stat">
+    <small>MODE</small>
+    <strong>SPORT</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="car-preview">
+
+<div class="preview-label">
+
+<div class="eyebrow">
+    CURRENT VEHICLE
+</div>
+
+<strong>
+    GX / OVERTRAIL
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section id="about">
+
+<div class="container">
+
+<div class="about-grid">
+
+<div class="about-image reveal"></div>
+
+<div class="about-copy reveal">
+
+<div class="eyebrow">
+    04 / ABOUT THE CREATOR
+</div>
+
+<h2>
+    CODE.<br>
+    CARS.<br>
+    <span>CREATE.</span>
+</h2>
+
+<p>
+    Меня зовут <strong>Askerbek Imanali</strong>.
+    Мне 14 лет, я занимаюсь IT и программированием
+    и люблю автомобили, компьютерные игры и
+    создание цифровых проектов.
+</p>
+
+<p>
+    Этот сайт — мой личный эксперимент:
+    соединить автомобильный дизайн,
+    BeamNG.drive и современный web development
+    в одном пространстве.
+</p>
+
+<div class="skills">
+
+<div class="skill">HTML</div>
+<div class="skill">CSS</div>
+<div class="skill">JavaScript</div>
+<div class="skill">IT</div>
+<div class="skill">BeamNG.drive</div>
+<div class="skill">UI / UX</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SUPPORT
+========================= -->
+
+<section class="tip" id="tips">
+
+<div class="container">
+
+<div class="eyebrow">
+    05 / SUPPORT THE PROJECT
+</div>
+
+<h2 class="reveal">
+    SUPPORT<br>
+    <span style="color:#666;">THE GARAGE.</span>
+</h2>
+
+<p class="reveal">
+    Если тебе нравится мой сайт, проекты или
+    автомобильный контент, ты можешь поддержать
+    развитие проекта.
+</p>
+
+<div class="tip-buttons reveal">
+
+<button class="tip-btn" onclick="tip(500)">
+    500 ₸
+</button>
+
+<button class="tip-btn" onclick="tip(2000)">
+    2 000 ₸
+</button>
+
+<button class="tip-btn" onclick="tip(5000)">
+    5 000 ₸
+</button>
+
+</div>
+
+<div class="tip-note">
+    * Кнопки демонстрационные. Для реальных платежей
+    подключите Kaspi / CloudPayments / Stripe или другой
+    платёжный сервис.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section class="contact" id="contact">
+
+<div class="container">
+
+<div class="contact-box reveal">
+
+<div>
+
+<div class="eyebrow">
+    06 / CONTACT
+</div>
+
+<h2>
+    LET'S<br>
+    TALK.
+</h2>
+
+</div>
+
+<a class="contact-email"
+   href="mailto:YOUR_EMAIL@example.com">
+    Email Askerbek →
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<div class="container">
+
+<div class="footer-inner">
+
+<div>
+    © 2026 ASKERBEK IMANALI
+</div>
+
+<div>
+    BUILT WITH CODE / KAZAKHSTAN
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+
+<!-- =========================
+     MODAL
+========================= -->
+
+<div class="modal" id="modal">
+
+<div class="modal-box">
+
+<button class="modal-close" id="modalClose">
+    ×
+</button>
+
+<img class="modal-image" id="modalImage" src="" alt="Vehicle">
+
+<h2 id="modalTitle">
+    GX 550
+</h2>
+
+<p id="modalDescription">
+    Vehicle description.
+</p>
+
+<div style="margin-top:25px;">
+
+<a href="#beamng"
+   class="btn primary"
+   id="modalBeam">
+   Open BeamNG mode →
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   NAVIGATION
+========================= */
+
+const nav = document.getElementById("nav");
+
+window.addEventListener("scroll", () => {
+
+    if(window.scrollY > 60){
+        nav.classList.add("scrolled");
+    }else{
+        nav.classList.remove("scrolled");
+    }
+
+});
+
+
+/* =========================
+   CURSOR
+========================= */
+
+const cursor = document.querySelector(".cursor");
+
+document.addEventListener("mousemove", e => {
+
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+
+});
+
+document.querySelectorAll("a,button,.model-card").forEach(el => {
+
+    el.addEventListener("mouseenter", () => {
+        cursor.classList.add("active");
+    });
+
+    el.addEventListener("mouseleave", () => {
+        cursor.classList.remove("active");
+    });
+
+});
+
+
+/* =========================
+   THEME
+========================= */
+
+const themeBtn = document.getElementById("themeBtn");
+
+themeBtn.addEventListener("click", () => {
+
+    document.body.classList.toggle("light");
+
+    localStorage.setItem(
+        "theme",
+        document.body.classList.contains("light")
+            ? "light"
+            : "dark"
+    );
+
+});
+
+if(localStorage.getItem("theme") === "light"){
+    document.body.classList.add("light");
+}
+
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+const observer = new IntersectionObserver(
+    entries => {
+
+        entries.forEach(entry => {
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add("visible");
+
+            }
+
+        });
+
+    },
+    {
+        threshold:.12
+    }
+);
+
+document.querySelectorAll(".reveal").forEach(el => {
+    observer.observe(el);
+});
+
+
+/* =========================
+   MODEL FILTER
+========================= */
+
+const filters = document.querySelectorAll(".filter");
+const cards = document.querySelectorAll(".model-card");
+
+filters.forEach(filter => {
+
+    filter.addEventListener("click", () => {
+
+        filters.forEach(f =>
+            f.classList.remove("active")
+        );
+
+        filter.classList.add("active");
+
+        const selected = filter.dataset.filter;
+
+        cards.forEach(card => {
+
+            if(
+                selected === "all" ||
+                card.dataset.category === selected
+            ){
+
+                card.style.display = "";
+
+                setTimeout(() => {
+                    card.style.opacity = "1";
+                    card.style.transform = "";
+                },20);
+
+            }else{
+
+                card.style.opacity = "0";
+                card.style.transform = "scale(.95)";
+
+                setTimeout(() => {
+                    card.style.display = "none";
+                },300);
+
+            }
+
+        });
+
+    });
+
+});
+
+
+/* =========================
+   MODEL MODAL
+========================= */
+
+const modal = document.getElementById("modal");
+const modalImage = document.getElementById("modalImage");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const modalClose = document.getElementById("modalClose");
+
+cards.forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        modalImage.src = card.dataset.image;
+        modalTitle.textContent = card.dataset.model;
+        modalDescription.textContent = card.dataset.description;
+
+        modal.classList.add("show");
+
+        document.body.style.overflow = "hidden";
+
+    });
+
+});
+
+function closeModal(){
+
+    modal.classList.remove("show");
+
+    document.body.style.overflow = "";
+
+}
+
+modalClose.addEventListener("click", closeModal);
+
+modal.addEventListener("click", e => {
+
+    if(e.target === modal){
+        closeModal();
+    }
+
+});
+
+document.addEventListener("keydown", e => {
+
+    if(e.key === "Escape"){
+        closeModal();
+    }
+
+});
+
+
+/* =========================
+   TIP SYSTEM
+========================= */
+
+function tip(amount){
+
+    alert(
+        "Спасибо за поддержку! ❤️\n\n" +
+        "Вы выбрали: " +
+        amount.toLocaleString("ru-RU") +
+        " ₸\n\n" +
+        "Для реальных платежей подключите платёжный сервис."
+    );
+
+}
+
+
+/* =========================
+   PARALLAX
+========================= */
+
+window.addEventListener("scroll", () => {
+
+    const scroll = window.scrollY;
+
+    const bg = document.querySelector(".hero-bg");
+
+    if(bg){
+
+        bg.style.transform =
+            `translateY(${scroll * .16}px) scale(1.08)`;
+
+    }
+
+});
+
+
+/* =========================
+   3D CARD TILT
+========================= */
+
+document.querySelectorAll(".model-card").forEach(card => {
+
+    card.addEventListener("mousemove", e => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x =
+            (e.clientX - rect.left) /
+            rect.width;
+
+        const y =
+            (e.clientY - rect.top) /
+            rect.height;
+
+        const rotateY =
+            (x - .5) * 5;
+
+        const rotateX =
+            (y - .5) * -5;
+
+        card.style.transform =
+            `perspective(900px)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)
+             translateY(-8px)`;
+
+    });
+
+    card.addEventListener("mouseleave", () => {
+
+        card.style.transform = "";
+
+    });
+
+});
+
+
+/* =========================
+   CONSOLE
+========================= */
+
+console.log(`
+╔══════════════════════════════════════╗
+║       ASKERBEK DIGITAL GARAGE        ║
+║                                      ║
+║  Lexus × BeamNG × Programming        ║
+║                                      ║
+║  Created by Askerbek Imanali         ║
+╚══════════════════════════════════════╝
+`);
+
+</script>
+
+</body>
+</html>
